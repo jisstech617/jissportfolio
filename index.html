@@ -583,12 +583,16 @@
 
     <section id="contact" class="contact">
         <h2>Contact Me</h2>
-        <form class="contact-form fade-in" action="sendmail.php" method="post">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" required></textarea>
-            <button type="submit" class="btn">Send</button>
-        </form>
+      <form class="contact-form fade-in" action="https://formspree.io/f/xanelvkb" method="POST">
+    <input type="hidden" name="_redirect" value="thankyou.html">
+    
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Your Message" required></textarea>
+    
+    <button type="submit" class="btn">Send</button>
+</form>
+
     </section>
 
     <script>
