@@ -95,6 +95,28 @@
         width: 100%;
     }
 
+    .hamburger {
+        display: none;
+        font-size: 1.8rem;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .hamburger.active .fa-bars {
+        display: none;
+    }
+
+    .hamburger.active .fa-times {
+        display: inline;
+    }
+
+    .hamburger .fa-times {
+        display: none;
+    }
+
     .hero {
         height: 100vh;
         display: flex;
@@ -403,19 +425,36 @@
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
         .navbar {
-            flex-direction: column;
             padding: 15px 20px;
+            flex-wrap: wrap;
+        }
+
+        .hamburger {
+            display: block;
         }
 
         .nav-links {
+            display: none;
             flex-direction: column;
+            width: 100%;
             gap: 15px;
             margin-top: 15px;
             text-align: center;
+            background: var(--glass-bg);
+            position: absolute;
+            top: 60px;
+            left: 0;
+            padding: 20px 0;
+            z-index: 9;
+        }
+
+        .nav-links.active {
+            display: flex;
         }
 
         .nav-links a {
             font-size: 1rem;
+            padding: 10px;
         }
 
         .hero-content h1 {
@@ -547,6 +586,10 @@
 <body>
     <nav class="navbar">
         <div class="logo">Jissmon Babu</div>
+        <button class="hamburger">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-times"></i>
+        </button>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -737,6 +780,8 @@
             e.preventDefault();
             const section = document.querySelector(this.getAttribute('href'));
             section.scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('.nav-links').classList.remove('active');
+            document.querySelector('.hamburger').classList.remove('active');
         });
     });
 
@@ -781,6 +826,14 @@
         interactivity: {
             events: { onhover: { enable: true, mode: 'repulse' } }
         }
+    });
+
+    // Hamburger Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
     });
     </script>
 </body>
