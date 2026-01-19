@@ -3,458 +3,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jissmon Babu - PHP Laravel Developer</title>
+    <title>Jissmon Babu | Senior PHP Laravel Developer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
-:root {
-    --bg: #0b0f19;
-    --card: rgba(255,255,255,0.06);
-    --primary: #38bdf8;
-    --accent: #a78bfa;
-    --text: #e5e7eb;
-    --muted: #9ca3af;
-    --radius: 18px;
-}
+    
+    <style>
+        :root {
+            --bg: #030303;
+            --accent: #00d4ff;
+            --accent-glow: rgba(0, 212, 255, 0.15);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: var(--text-main); overflow-x: hidden; line-height: 1.6; }
 
-body {
-    background: radial-gradient(circle at top, #111827, #020617);
-    color: var(--text);
-    overflow-x: hidden;
-}
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; top: 0; left: 0; }
+        #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--accent), #ff6b6b); width: 0%; z-index: 2000; }
 
-/* NAVBAR */
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 18px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(14px);
-    background: rgba(2,6,23,0.7);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-}
+        .nav-wrapper { position: fixed; top: 25px; left: 50%; transform: translateX(-50%); z-index: 1000; width: 90%; max-width: 1200px; }
+        .navbar { 
+            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(12px); 
+            border: 1px solid var(--card-border); padding: 12px 30px; 
+            border-radius: 100px; display: flex; justify-content: space-between; align-items: center; 
+        }
+        .nav-links { display: flex; gap: 25px; list-style: none; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: var(--transition); }
+        .nav-links a:hover { color: var(--accent); }
 
-.logo {
-    font-size: 1.6rem;
-    font-weight: 800;
-    background: linear-gradient(90deg,var(--primary),var(--accent));
-    -webkit-background-clip: text;
-    color: transparent;
-}
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 20px; }
+        .hero-img { width: 140px; height: 140px; border-radius: 40px; border: 1px solid var(--card-border); margin-bottom: 20px; object-fit: cover; }
+        .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1; letter-spacing: -2px; margin-bottom: 15px; }
+        .hero p { color: var(--text-dim); max-width: 700px; margin-bottom: 30px; font-size: 1.1rem; }
 
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 28px;
-}
+        .grid-layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        .spotlight-card { 
+            position: relative; background: var(--card-bg); border-radius: 24px; 
+            border: 1px solid var(--card-border); padding: 35px; overflow: hidden; transition: var(--transition); 
+            display: flex; flex-direction: column;
+        }
+        .spotlight-card::before {
+            content: ""; position: absolute; inset: 0; 
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
+            z-index: 0; pointer-events: none;
+        }
 
-.nav-links a {
-    text-decoration: none;
-    color: var(--muted);
-    font-weight: 500;
-    transition: 0.3s;
-}
+        .about-main { grid-column: span 8; }
+        .contact-sidebar { grid-column: span 4; }
+        .full-width { grid-column: span 12; }
+        .project-card { grid-column: span 4; min-height: 300px; }
 
-.nav-links a:hover {
-    color: var(--primary);
-}
+        .tag { font-size: 0.7rem; text-transform: uppercase; color: var(--accent); background: var(--accent-glow); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 15px; }
+        .skills-container { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-item { padding: 8px 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 10px; font-size: 0.85rem; }
+        
+        .btn-main { background: var(--accent); color: #000; padding: 14px 28px; border-radius: 100px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition); border:none; }
+        .btn-outline { border: 1px solid var(--card-border); color: #fff; padding: 14px 28px; border-radius: 100px; text-decoration: none; font-weight: 600; transition: var(--transition); }
 
-/* HERO */
-.hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    align-items: center;
-    padding: 0 80px;
-}
+        .project-card i { font-size: 1.8rem; color: var(--accent); margin-bottom: 20px; }
+        .project-card h3 { margin-bottom: 12px; font-family: 'Syne'; font-size: 1.3rem; line-height: 1.2; color: #fff; }
+        .project-card p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 25px; flex-grow: 1; }
+        .project-link { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; margin-top: auto; }
 
-.hero h1 {
-    font-size: 4rem;
-    font-weight: 900;
-    line-height: 1.1;
-}
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-.hero h1 span {
-    background: linear-gradient(90deg,var(--primary),var(--accent));
-    -webkit-background-clip: text;
-    color: transparent;
-}
-
-.hero p {
-    margin: 20px 0 40px;
-    font-size: 1.2rem;
-    color: var(--muted);
-}
-
-.hero img {
-    width: 320px;
-    border-radius: 50%;
-    border: 6px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 60px rgba(56,189,248,0.3);
-    justify-self: center;
-}
-
-/* BUTTONS */
-.btn {
-    padding: 14px 34px;
-    border-radius: 40px;
-    background: linear-gradient(90deg,var(--primary),var(--accent));
-    color: #020617;
-    font-weight: 700;
-    text-decoration: none;
-    display: inline-block;
-    margin-right: 15px;
-    transition: 0.3s;
-}
-
-.btn.outline {
-    background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-}
-
-/* SECTION */
-section {
-    padding: 120px 80px;
-}
-
-section h2 {
-    font-size: 2.8rem;
-    text-align: center;
-    margin-bottom: 70px;
-}
-
-/* SKILLS */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
-    gap: 24px;
-}
-
-.skill-card {
-    background: var(--card);
-    padding: 30px;
-    border-radius: var(--radius);
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: 0.3s;
-}
-
-.skill-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary);
-}
-
-/* PROJECTS */
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
-    gap: 35px;
-}
-
-.project-card {
-    background: var(--card);
-    padding: 30px;
-    border-radius: var(--radius);
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: 0.3s;
-}
-
-.project-card:hover {
-    transform: translateY(-12px);
-    border-color: var(--accent);
-}
-
-.project-card h3 {
-    margin-bottom: 10px;
-}
-
-.project-card p {
-    color: var(--muted);
-    font-size: 0.95rem;
-}
-
-/* CONTACT */
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 16px;
-    background: var(--card);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: var(--radius);
-    color: white;
-}
-</style>
-
+        @media (max-width: 992px) {
+            .about-main, .contact-sidebar, .project-card { grid-column: span 12; }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">Jissmon Babu</div>
-        <button class="hamburger">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-times"></i>
-        </button>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
 
+    <div id="progress-bar"></div>
     <div id="particles-js"></div>
 
+    <div class="nav-wrapper">
+        <nav class="navbar">
+            <a href="#" style="font-family:'Syne'; font-weight:800; color:var(--accent); text-decoration:none; font-size:1.4rem;">JB</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="tel:+919656632185" class="btn-main" style="padding: 8px 20px; font-size: 0.8rem;">Hire Me</a>
+        </nav>
+    </div>
+
     <section id="home" class="hero">
-        <div class="hero-content fade-in">
-            <img src="mypic.jpg" alt="Jissmon Babu">
-            <h1>Hi, I’m Jissmon Babu</h1>
-            <p><span class="highlight">PHP</span> <span class="highlight">Laravel</span> Developer | 2+ Years</p>
-            <a href="#contact" class="btn">Get in Touch</a>
-            <a href="https://jisstech617.github.io/jissportfolio/mycv.pdf" class="download-cv" download="My-CV.pdf">Download CV</a>
-            <a href="tel:+919656632185" class="call-btn"><i class="fas fa-phone"></i> Call</a>
-            <a href="https://wa.me/919656632185" class="contact-btn" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <img src="mypic.jpg" alt="Jissmon Babu" class="hero-img">
+        <h1 class="reveal">Architecting <span style="color:var(--accent)">Systems.</span></h1>
+        <p class="reveal">Senior PHP Laravel Developer with <b>3+ years of experience</b> building high-performance CRMs, complex API ecosystems, and scalable enterprise applications.</p>
+        <div style="display:flex; gap:15px; flex-wrap:wrap; justify-content:center;" class="reveal">
+            <a href="https://jisstech617.github.io/jissportfolio/mycv.pdf" class="btn-main"><i class="fas fa-file-download"></i> Download CV</a>
+            <a href="https://wa.me/919656632185" class="btn-outline"><i class="fab fa-whatsapp"></i> Message</a>
         </div>
     </section>
 
-    <section id="about" class="about fade-in">
-        <h2>About Me</h2>
-        <div class="about-content">
-            <p>Motivated and detail-oriented Software Developer with a strong foundation in software development, including web and mobile application projects. Proficient in modern programming languages and frameworks, with hands-on experience in designing, coding, and debugging software solutions. Adept at collaborating with cross-functional teams to deliver high-quality, user-focused applications. Passionate about learning new technologies and optimizing software performance.</p>
-            <h3>Contact</h3>
-            <p>Phone: +91 9656632185<br>Email: <a href="mailto:jisstech617@gmail.com">jisstech617@gmail.com</a><br>Address: Thakidiyel, Champakara P.O, Kottayam, Kerala, India<br>LinkedIn: <a href="https://www.linkedin.com/in/jissmon-babu9a8989342" target="_blank">https://www.linkedin.com/in/jissmon-babu9a8989342</a></p>
-            <h3>Education</h3>
-            <ul>
-                <li>MG University (2017 - 2021) - Bachelor's of Science in Electronics and Communication Technology</li>
-                <li>IPSR Solutions (2021 - 2022) - Certification in Web Development using Python Django</li>
-                <li>Enbridge Institute (2022 - 2023) - Network Engineering in CCNA</li>
-            </ul>
-            <h3>Languages</h3>
-            <ul>
-                <li>Malayalam</li>
-                <li>English</li>
-            </ul>
-            <h3>Work Experience</h3>
-            <ul>
-                <li><strong>Globosoft (2024 - Present)</strong> - Software Developer<br>Software Developer at Globosoft with expertise in designing and developing dynamic websites, APIs for mobile applications, and comprehensive e-commerce platforms. Skilled in full-stack development and delivering scalable, user-friendly solutions tailored to client requirements. Proven ability to optimize performance and implement innovative features across diverse projects.</li>
-                <li><strong>IVBM OPC Pvt Limited (2023 - 2024)</strong> - Jr. PHP Laravel Developer<br>As a PHP Laravel Developer at IVBM, I played a key role in developing HRMS software that streamlined employee lifecycle management, including recruitment, attendance, and payroll. I also designed and built a responsive business website to enhance the company's digital presence. My responsibilities included leveraging the Laravel framework to create scalable and secure applications, integrating APIs, and optimizing database performance. Collaborating with cross-functional teams, I ensured timely project delivery while maintaining high-quality standards through thorough testing and debugging.</li>
-            </ul>
+    <div class="grid-layout" id="about">
+        <div class="spotlight-card about-main reveal">
+            <span class="tag">The Developer</span>
+            <h2 style="font-family:'Syne'; font-size:2rem; margin-bottom:15px;">Experience & Education</h2>
+            <p style="color:var(--text-dim); margin-bottom:25px;">Expert in Laravel, PHP, and modern web architectures with over 3 years of professional experience and a proven track record of delivering 30+ successful projects.</p>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                <div>
+                    <h4 style="color:var(--accent)">Globosoft</h4>
+                    <small style="color:var(--text-dim)">Software Developer (2024 - Present)</small>
+                </div>
+                <div>
+                    <h4 style="color:var(--accent)">IVBM OPC</h4>
+                    <small style="color:var(--text-dim)">Jr. Laravel Developer (2023 - 2024)</small>
+                </div>
+            </div>
+            <hr style="margin:25px 0; border:0; border-top:1px solid var(--card-border);">
+            <h4 style="color:var(--accent); margin-bottom:10px;">Education</h4>
+            <p style="font-size:0.9rem; color:var(--text-dim);">B.Sc Electronics & Communication, MG University</p>
+        </div>
+
+        <div class="spotlight-card contact-sidebar reveal">
+            <h3 style="margin-bottom:20px; font-family:'Syne';">Core Identity</h3>
+            <div style="display:flex; flex-direction:column; gap:18px; font-size:0.85rem;">
+                <p><i class="fas fa-phone" style="color:var(--accent); width:20px;"></i> +91 9656632185</p>
+                <p><i class="fas fa-envelope" style="color:var(--accent); width:20px;"></i> jisstech617@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt" style="color:var(--accent); width:20px;"></i> Kerala, India</p>
+                <a href="https://www.linkedin.com/in/jissmon-babu9a8989342" target="_blank" style="color:#fff; text-decoration:none;"><i class="fab fa-linkedin" style="color:var(--accent); width:20px;"></i> LinkedIn</a>
+            </div>
+        </div>
+
+       <div class="spotlight-card full-width reveal">
+    <h3 style="text-align:center; margin-bottom:25px; font-family:'Syne';">Technical Arsenal</h3>
+    
+    <div class="skills-container" style="justify-content:center; margin-bottom: 15px;">
+        <span class="skill-item">PHP</span>
+        <span class="skill-item">Laravel</span>
+        <span class="skill-item">CodeIgniter</span>
+        <span class="skill-item">Python / Django</span>
+    </div>
+
+    <div class="skills-container" style="justify-content:center; margin-bottom: 15px;">
+        <span class="skill-item">React JS</span>
+        <span class="skill-item">JavaScript (ES6+)</span>
+        <span class="skill-item">Laravel - Electron (Desktop Apps)</span>
+        <span class="skill-item">Bootstrap 5</span>
+    </div>
+
+    <div class="skills-container" style="justify-content:center;">
+        <span class="skill-item">MySQL / PostgreSQL</span>
+        <span class="skill-item">REST API / AJAX</span>
+        <span class="skill-item">Docker / Git</span>
+        <span class="skill-item">Azure / AWS Hosting</span>
+    </div>
+</div>
+
+        <div class="full-width" style="text-align:center; padding:80px 0 40px;" id="projects">
+            <h2 style="font-family:'Syne'; font-size:3.5rem;">Selected Work</h2>
+            <p style="color:var(--text-dim)">Architecting solutions across Real Estate, Finance, Healthcare, and E-commerce.</p>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-building"></i>
+            <h3>Land Bank CRM</h3>
+            <p>Comprehensive real estate multivendor platform designed to streamline property transactions and management for developers and agents.</p>
+            <a href="https://globosoft.co.uk/pazherylandbank" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-user-cog"></i>
+            <h3>Caspian HRMS</h3>
+            <p>Integrated platform managing the complete employee lifecycle from recruitment and onboarding to payroll and retirement.</p>
+            <a href="https://dev.18008907990.com/caspian-hrms/login" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-users"></i>
+            <h3>Sanskey CRM</h3>
+            <p>Role-based multivendor ecosystem featuring complex API integrations for secure data management and user permissions.</p>
+            <a href="https://globosoft.co.uk/sanskey-crm/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-taxi"></i>
+            <h3>Kochi Taxi</h3>
+            <p>Logistics and transportation management system focused on local fleet tracking and customer booking management.</p>
+            <a href="http://globosoft.org/2025/07/kochitaxi" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-quote-left"></i>
+            <h3>The Motive Quotes</h3>
+            <p>Content-driven platform providing daily inspiration through a curated database of motivational quotes.</p>
+            <a href="https://themotivequotes.in/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-laptop-code"></i>
+            <h3>GSS Digital</h3>
+            <p>Business solutions portal showcasing digital transformation services and technology consulting.</p>
+            <a href="https://www.gss-digital.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-book-reader"></i>
+            <h3>Malankara Library</h3>
+            <p>A sophisticated digital archive and library management system for ecclesiastical documents and resources.</p>
+            <a href="https://dev.18008907990.com/malankaralibrary.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-hands-praying"></i>
+            <h3>Rituals Portal</h3>
+            <p>Culturally focused platform facilitating the booking and management of religious and traditional services.</p>
+            <a href="https://dev.18008907990.com/rituals/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-key"></i>
+            <h3>Elite Trust Property</h3>
+            <p>High-end property portal focusing on premium listings and verified buyer-seller interactions.</p>
+            <a href="https://dev.18008907990.com/elitetrustproperty.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-heartbeat"></i>
+            <h3>Aidu Healthcare</h3>
+            <p>Modern healthcare support interface designed to streamline patient assistance and community health services.</p>
+            <a href="https://dev.18008907990.com/aidu/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-users-viewfinder"></i>
+            <h3>Mentor Collective</h3>
+            <p>E-learning and professional development platform connecting students with industry mentors.</p>
+            <a href="https://mentor-collective.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-microchip"></i>
+            <h3>Oxon Tech</h3>
+            <p>Infrastructure and IT solutions portal for enterprise-grade technology deployments.</p>
+            <a href="https://dev.18008907990.com/Oxon/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-route"></i>
+            <h3>PrimePath</h3>
+            <p>Strategic logistics planning platform with route optimization and resource management.</p>
+            <a href="https://dev.18008907990.com/primepath/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-industry"></i>
+            <h3>KVH Steels</h3>
+            <p>B2B manufacturing portal for industrial steel supply chain and inventory management.</p>
+            <a href="https://kvhsteels.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-map-marked-alt"></i>
+            <h3>Plum Trip</h3>
+            <p>Intuitive travel planning interface for creating and sharing customized holiday itineraries.</p>
+            <a href="https://plumtrip.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-plane-departure"></i>
+            <h3>Airport Verse</h3>
+            <p>Specialized platform for airport-related services, flight information, and transit amenities.</p>
+            <a href="https://www.airportverse.in" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-check-circle"></i>
+            <h3>CQV Compliance</h3>
+            <p>Regulatory verification system for ensuring quality compliance in corporate operations.</p>
+            <a href="https://dev.18008907990.com/cqv/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-dumbbell"></i>
+            <h3>My Fit Buddy</h3>
+            <p>Health and fitness tracking application for personalized workout and nutrition management.</p>
+            <a href="https://globosoft.co.uk/myFitBuddy/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-user-tie"></i>
+            <h3>VGuide Career</h3>
+            <p>Comprehensive career counseling and job portal providing expert pathfinding for students.</p>
+            <a href="https://vguidecareer.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-suitcase"></i>
+            <h3>Lakshya Trips</h3>
+            <p>User-centric travel and tour management platform with integrated booking features.</p>
+            <a href="https://lakshyatrips.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-umbrella-beach"></i>
+            <h3>Yathri Holidays</h3>
+            <p>End-to-end holiday booking system for leisure travel and destination management.</p>
+            <a href="https://yathriholidays.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-chart-line"></i>
+            <h3>RFSIL</h3>
+            <p>Data-driven financial investment platform with advanced reporting and user insights.</p>
+            <a href="https://www.rfsil.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-globe"></i>
+            <h3>Kerala Travel</h3>
+            <p>Regional tourism showcase platform promoting travel destinations across Kerala.</p>
+            <a href="https://www.keralatravel.org" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-money-bill-wave"></i>
+            <h3>Get My Easy Loan</h3>
+            <p>Fintech application for digital loan processing, tracking, and management.</p>
+            <a href="https://getmyeasyloan.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-plane"></i>
+            <h3>Trip to Go Tours</h3>
+            <p>International tour planning platform with a focus on seamless booking experiences.</p>
+            <a href="https://triptogotours.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-briefcase"></i>
+            <h3>VGuide Jobs</h3>
+            <p>Dedicated recruitment portal for job listings and employment opportunities.</p>
+            <a href="https://www.vguidecareerjobs.com/jobs" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-heart"></i>
+            <h3>We for You</h3>
+            <p>Secure matrimonial service platform providing community-based matchmaking.</p>
+            <a href="https://weforyoumatrimonial.in/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-crown"></i>
+            <h3>Crown Cres</h3>
+            <p>Premium real estate and lifestyle management interface for elite properties.</p>
+            <a href="http://crowncres.com/" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-anchor"></i>
+            <h3>Beach Marine UAE</h3>
+            <p>Corporate platform for marine services, boating, and luxury sea transit in the UAE.</p>
+            <a href="https://www.beachmarineuae.com" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="spotlight-card project-card reveal">
+            <i class="fas fa-gem"></i>
+            <h3>Dilaara</h3>
+            <p>Lifestyle and e-commerce platform focusing on high-quality consumer products.</p>
+            <a href="https://www.dilaara.com" target="_blank" class="project-link">Visit Site <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+    </div>
+
+    <section id="contact" style="padding: 100px 20px;">
+        <div class="spotlight-card reveal" style="max-width:800px; margin:0 auto;">
+            <h2 style="font-family:'Syne'; text-align:center; margin-bottom:30px;">Let's Connect</h2>
+            <form action="https://formspree.io/f/xanelvkb" method="POST" style="display:grid; gap:15px;">
+                <input type="text" name="name" placeholder="Name" required style="padding:15px; background:rgba(255,255,255,0.05); border:1px solid var(--card-border); border-radius:12px; color:white; outline:none;">
+                <input type="email" name="email" placeholder="Email" required style="padding:15px; background:rgba(255,255,255,0.05); border:1px solid var(--card-border); border-radius:12px; color:white; outline:none;">
+                <textarea name="message" placeholder="Describe your project" rows="5" required style="padding:15px; background:rgba(255,255,255,0.05); border:1px solid var(--card-border); border-radius:12px; color:white; outline:none;"></textarea>
+                <button type="submit" class="btn-main" style="cursor:pointer; justify-content:center;">Send Message</button>
+            </form>
         </div>
     </section>
 
-    <section id="skills" class="skills">
-        <h2>Skills</h2>
-        <div class="skills-grid fade-in">
-            <div class="skill-card">HTML</div>
-            <div class="skill-card">CSS</div>
-            <div class="skill-card">JavaScript</div>
-            <div class="skill-card">Bootstrap</div>
-            <div class="skill-card">jQuery</div>
-            <div class="skill-card">Ajax</div>
-            <div class="skill-card">React JS</div>
-            <div class="skill-card">Python</div>
-            <div class="skill-card">Django</div>
-            <div class="skill-card">PHP</div>
-            <div class="skill-card">Laravel</div>
-            <div class="skill-card">CodeIgniter</div>
-            <div class="skill-card">PostgreSQL</div>
-            <div class="skill-card">MySQL</div>
-            <div class="skill-card">REST API</div>
-            <div class="skill-card">Third Party API Integration's</div>
-            <div class="skill-card">Web Hosting</div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <h2>Projects</h2>
-        <div class="project-grid">
-            <div class="project-card fade-in">
-                <h3>Land Bank - Real Estate CRM</h3>
-                <p>A comprehensive real estate CRM and multivendor platform designed to streamline property transactions and management. It caters to diverse roles such as administrators, sellers, investors, buyers, agents, legal professionals, and developers.</p>
-                <a href="https://globosoft.co.uk/pazherylandbank" target="_blank"><i class="fas fa-building"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Caspian HRMS</h3>
-                <p>An integrated HRMS and CRM platform designed to manage the complete lifecycle of employees, from hiring to retirement.</p>
-                <a href="https://dev.18008907990.com/caspian-hrms/login" target="_blank"><i class="fas fa-user-cog"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Sanskey CRM</h3>
-                <p>Developed and implemented APIs for 'Sanskey CRM,' a multivendor CRM platform that facilitates role-based functionalities.</p>
-                <a href="https://globosoft.co.uk/sanskey-crm/" target="_blank"><i class="fas fa-users"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>E-Mak Silent Heroes</h3>
-                <p>A platform for silent heroes or community service.</p>
-                <a href="http://www.emaksilentheroes.com" target="_blank"><i class="fas fa-shield-alt"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Aurora Education</h3>
-                <p>An educational resource or training platform.</p>
-                <a href="https://www.auroraeducation.in" target="_blank"><i class="fas fa-graduation-cap"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Beach Marine UAE</h3>
-                <p>A marine services or boating website.</p>
-                <a href="https://www.beachmarineuae.com" target="_blank"><i class="fas fa-anchor"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Dilaara</h3>
-                <p>A lifestyle or e-commerce website.</p>
-                <a href="https://www.dilaara.com" target="_blank"><i class="fas fa-gem"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Airport Verse</h3>
-                <p>A platform related to airport services or information.</p>
-                <a href="https://www.airportverse.in" target="_blank"><i class="fas fa-plane-departure"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>CQV Compliance</h3>
-                <p>A compliance and quality verification platform.</p>
-                <a href="https://dev.18008907990.com/cqv/" target="_blank"><i class="fas fa-check-circle"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>My Fit Buddy</h3>
-                <p>A fitness or health-related application or website.</p>
-                <a href="https://globosoft.co.uk/myFitBuddy/" target="_blank"><i class="fas fa-dumbbell"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>VGuide Career</h3>
-                <p>A career guidance and job portal.</p>
-                <a href="https://vguidecareer.com/" target="_blank"><i class="fas fa-user-tie"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Lakshya Trips</h3>
-                <p>A travel and trip planning website.</p>
-                <a href="https://lakshyatrips.com/" target="_blank"><i class="fas fa-suitcase"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Yathri Holidays</h3>
-                <p>A holiday and tour booking platform.</p>
-                <a href="https://yathriholidays.com/" target="_blank"><i class="fas fa-umbrella-beach"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>RFSIL</h3>
-                <p>A financial or investment-related platform.</p>
-                <a href="https://www.rfsil.com/" target="_blank"><i class="fas fa-chart-line"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Kerala Travel</h3>
-                <p>A travel website showcasing Kerala tourism.</p>
-                <a href="https://www.keralatravel.org" target="_blank"><i class="fas fa-globe"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Get My Easy Loan</h3>
-                <p>A loan application and management platform.</p>
-                <a href="https://getmyeasyloan.com/" target="_blank"><i class="fas fa-money-bill-wave"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>Trip to Go Tours</h3>
-                <p>A tour planning and booking website.</p>
-                <a href="https://triptogotours.com/" target="_blank"><i class="fas fa-plane"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>VGuide Career Jobs</h3>
-                <p>A job portal for career opportunities.</p>
-                <a href="https://www.vguidecareerjobs.com/jobs" target="_blank"><i class="fas fa-briefcase"></i> Visit Site</a>
-            </div>
-            <div class="project-card fade-in">
-                <h3>We for You Matrimonial</h3>
-                <p>A matrimonial service platform.</p>
-                <a href="https://weforyoumatrimonial.in/" target="_blank"><i class="fas fa-heart"></i> Visit Site</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <h2>Contact Me</h2>
-        <form class="contact-form fade-in" action="https://formspree.io/f/xanelvkb" method="POST">
-            <input type="hidden" name="_redirect" value="thankyou.html">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <input type="tel" name="phone" placeholder="Your Phone Number" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit" class="btn">Send</button>
-        </form>
-    </section>
+    <footer style="text-align:center; padding:40px; color:var(--text-dim); border-top:1px solid var(--card-border);">
+        <p>&copy; 2026 Jissmon Babu | Full Stack PHP Laravel Specialist</p>
+    </footer>
 
     <script>
-    document.querySelectorAll('.nav-links a').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const section = document.querySelector(this.getAttribute('href'));
-            section.scrollIntoView({ behavior: 'smooth' });
-            document.querySelector('.nav-links').classList.remove('active');
-            document.querySelector('.hamburger').classList.remove('active');
-        });
-    });
-
-    window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: '#00d4ff' },
+                opacity: { value: 0.2 },
+                size: { value: 2 },
+                line_linked: { enable: true, distance: 150, color: '#00d4ff', opacity: 0.1, width: 1 },
+                move: { enable: true, speed: 1.5 }
             }
         });
-    }, { threshold: 0.2 });
 
-    document.querySelectorAll('.hero-content, .about, .skills-grid, .project-card, .contact-form').forEach(el => {
-        observer.observe(el);
-    });
+        document.querySelectorAll(".spotlight-card").forEach(card => {
+            card.onmousemove = e => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+            };
+        });
 
-    const cursor = document.createElement('div');
-    cursor.classList.add('custom-cursor');
-    document.body.appendChild(cursor);
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.pageX + 'px';
-        cursor.style.top = e.pageY + 'px';
-    });
+        window.onscroll = () => {
+            let winScroll = document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById("progress-bar").style.width = (winScroll / height) * 100 + "%";
+        };
 
-    particlesJS('particles-js', {
-        particles: {
-            number: { value: 80, density: { enable: true, value_area: 800 } },
-            color: { value: '#00d4ff' },
-            shape: { type: 'circle' },
-            opacity: { value: 0.5 },
-            size: { value: 3, random: true },
-            move: { enable: true, speed: 2, direction: 'none', random: true }
-        },
-        interactivity: {
-            events: { onhover: { enable: true, mode: 'repulse' } }
-        }
-    });
-
-    // Hamburger Menu Toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
-
